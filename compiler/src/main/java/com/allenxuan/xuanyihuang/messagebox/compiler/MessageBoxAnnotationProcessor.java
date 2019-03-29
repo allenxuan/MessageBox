@@ -128,12 +128,12 @@ public class MessageBoxAnnotationProcessor extends AbstractProcessor {
         HashSet<String> methodParameterClassNames = new HashSet<String>();
 
 
-        for(ExecutableElement method: methods){
+        for (ExecutableElement method : methods) {
             //every method have only one parameter here
             String methodParameterClassName = method.getParameters().get(0).asType().toString();
-            if(methodParameterClassNames.contains(methodParameterClassName)){
+            if (methodParameterClassNames.contains(methodParameterClassName)) {
                 mMessager.printMessage(Diagnostic.Kind.ERROR, "Within class " + packageName + "." + targetName + ", more than one method annotated with MessageReceive contain parameters whose class types are the same.");
-            }else {
+            } else {
                 methodParameterClassNames.add(methodParameterClassName);
             }
         }
