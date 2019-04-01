@@ -2,12 +2,18 @@ package com.allenxuan.xuanyihuang.messagebox.core;
 
 public class MessageInfo {
     private Class messageClass;
-    private boolean executeOnMainThread;
-    private boolean executeSynchronously;
+    private int executeThread;
+    private int executeDelay;
 
-    MessageInfo(Class messageClass, boolean executeOnMainThread, boolean executeSynchronously) {
+    /**
+     * executeThread:
+     * mainThread = 1
+     * workThread = 2
+     * sync = 3
+     */
+    public MessageInfo(Class messageClass, int executeThread, int executeDelay) {
         this.messageClass = messageClass;
-        this.executeOnMainThread = executeOnMainThread;
-        this.executeSynchronously = executeSynchronously;
+        this.executeThread = executeThread;
+        this.executeDelay = executeDelay;
     }
 }

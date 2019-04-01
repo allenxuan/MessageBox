@@ -127,36 +127,63 @@ public class MessageBoxAnnotationProcessor extends AbstractProcessor {
 
         HashSet<String> methodParameterClassNames = new HashSet<String>();
 
+        MethodSpec.Builder dispatchMessageMethodSpec = MethodSpec.methodBuilder("dispatchMessage")
+                .addModifiers(Modifier.PUBLIC)
+                .returns(void.class)
+                .addParameter(messageCarrier, "message")
+                .beginControlFlow("if(target == null)")
+                .addStatement("return")
+                .endControlFlow();
 
+        MethodSpec.Builder messageInfosMethodSpec = MethodSpec.methodBuilder("messageInfos")
+                .addModifiers(Modifier.PUBLIC)
+                .returns(listOfMessageInfo)
+                .addStatement("$T messageInfos = new $T()", listOfMessageInfo, arrayListOfMessageInfo);
+
+        boolean firstControlFlow = true;
         for (ExecutableElement method : methods) {
             //every method have only one parameter here
+            String methodName = method.getSimpleName().toString();
             String methodParameterClassName = method.getParameters().get(0).asType().toString();
+            int lastIndexOfDot = methodParameterClassName.lastIndexOf(".");
+            String methodParameterClassPackage = methodParameterClassName.substring(0, lastIndexOfDot);
+            String methodParameterClassSimpleName = methodParameterClassName.substring(lastIndexOfDot + 1, methodParameterClassName.length());
             if (methodParameterClassNames.contains(methodParameterClassName)) {
                 mMessager.printMessage(Diagnostic.Kind.ERROR, "Within class " + packageName + "." + targetName + ", more than one method annotated with MessageReceive contain parameters whose class types are the same.");
             } else {
                 methodParameterClassNames.add(methodParameterClassName);
             }
+
+            MessageReceive messageReceive = method.getAnnotation(MessageReceive.class);
+            int executeThread = messageReceive.executeThread();
+            int executeDelay = messageReceive.executeDelay();
+
+            ClassName specificMessageType = ClassName.get(methodParameterClassPackage, methodParameterClassSimpleName);
+
+            if(firstControlFlow) {
+                firstControlFlow = false;
+                dispatchMessageMethodSpec.beginControlFlow("if(message instanceof $T)", specificMessageType);
+                dispatchMessageMethodSpec.addStatement("target.$L(($T)message)", methodName, specificMessageType);
+            }else {
+                dispatchMessageMethodSpec.nextControlFlow("if(message instanceof $T)", specificMessageType);
+                dispatchMessageMethodSpec.addStatement("target.$L(($T)message)", methodName, specificMessageType);
+            }
+
+            messageInfosMethodSpec.addStatement("messageInfos.add(new MessageInfo($L, $L, $L))", methodParameterClassName + ".class", executeThread, executeDelay);
         }
+        methodParameterClassNames.clear();
 
-        MethodSpec dispatchMessageMethodSpec = MethodSpec.methodBuilder("dispatchMessage")
-                .addModifiers(Modifier.PUBLIC)
-                .returns(void.class)
-                .addParameter(messageCarrier, "message")
-                .build();
-
-        MethodSpec messageInfosMethodSpect = MethodSpec.methodBuilder("messageInfos")
-                .addModifiers(Modifier.PUBLIC)
-                .returns(listOfMessageInfo)
-                .addStatement("$T messageInfos = new $T()", listOfMessageInfo, arrayListOfMessageInfo)
-                .addStatement("return messageInfos")
-                .build();
+        if(methods.size() > 0) {
+            dispatchMessageMethodSpec.endControlFlow();
+        }
+        messageInfosMethodSpec.addStatement("return messageInfos");
 
         TypeSpec typeSpec = TypeSpec.classBuilder(className)
                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                 .addSuperinterface(iMessageReceiver)
                 .addField(target, "target", Modifier.PRIVATE)
-                .addMethod(dispatchMessageMethodSpec)
-                .addMethod(messageInfosMethodSpect)
+                .addMethod(dispatchMessageMethodSpec.build())
+                .addMethod(messageInfosMethodSpec.build())
                 .build();
 
         JavaFile javaFile = JavaFile.builder(packageName, typeSpec)
