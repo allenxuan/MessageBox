@@ -127,6 +127,12 @@ public class MessageBoxAnnotationProcessor extends AbstractProcessor {
 
         HashSet<String> methodParameterClassNames = new HashSet<String>();
 
+        MethodSpec constructor = MethodSpec.constructorBuilder()
+                .addModifiers(Modifier.PRIVATE)
+                .addParameter(target, "target")
+                .addStatement("this.$N = $N", "target", "target")
+                .build();
+
         MethodSpec.Builder dispatchMessageMethodSpec = MethodSpec.methodBuilder("dispatchMessage")
                 .addModifiers(Modifier.PUBLIC)
                 .returns(void.class)
@@ -182,6 +188,7 @@ public class MessageBoxAnnotationProcessor extends AbstractProcessor {
                 .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                 .addSuperinterface(iMessageReceiver)
                 .addField(target, "target", Modifier.PRIVATE)
+                .addMethod(constructor)
                 .addMethod(dispatchMessageMethodSpec.build())
                 .addMethod(messageInfosMethodSpec.build())
                 .build();

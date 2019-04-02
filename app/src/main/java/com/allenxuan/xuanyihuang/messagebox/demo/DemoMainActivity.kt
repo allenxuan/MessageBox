@@ -24,7 +24,7 @@ class DemoMainActivity : AppCompatActivity() {
 
     }
 
-    @MessageReceive(executeThread = MessageScheduler.mainThread, executeDelay = 0)
+    @MessageReceive(executeThread = MessageScheduler.mainThread, executeDelay = 500)
     fun func3(event2: Event2) {
 
     }
