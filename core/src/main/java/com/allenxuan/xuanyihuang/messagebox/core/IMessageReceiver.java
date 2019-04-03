@@ -6,4 +6,6 @@ public interface IMessageReceiver {
     public abstract void dispatchMessage(MessageCarrier message);
 
     public abstract List<MessageInfo> messageInfos();
+
+    public abstract void invalidateTarget();
 }

@@ -146,6 +146,11 @@ public class MessageBoxAnnotationProcessor extends AbstractProcessor {
                 .returns(listOfMessageInfo)
                 .addStatement("$T messageInfos = new $T()", listOfMessageInfo, arrayListOfMessageInfo);
 
+        MethodSpec.Builder invalidateTargetMethodSpec = MethodSpec.methodBuilder("invalidateTarget")
+                .addModifiers(Modifier.PUBLIC)
+                .returns(void.class)
+                .addStatement("target = null");
+
         boolean firstControlFlow = true;
         for (ExecutableElement method : methods) {
             //every method have only one parameter here
@@ -191,6 +196,7 @@ public class MessageBoxAnnotationProcessor extends AbstractProcessor {
                 .addMethod(constructor)
                 .addMethod(dispatchMessageMethodSpec.build())
                 .addMethod(messageInfosMethodSpec.build())
+                .addMethod(invalidateTargetMethodSpec.build())
                 .build();
 
         JavaFile javaFile = JavaFile.builder(packageName, typeSpec)
