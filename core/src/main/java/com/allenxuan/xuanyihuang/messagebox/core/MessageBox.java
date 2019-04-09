@@ -114,8 +114,14 @@ public class MessageBox {
     }
 
     public boolean unSubscribe(Object observer) {
-        ArrayList<IMessageReceiver> messageReceivers = mReceiverMap.remove(observer);
-        if(messageReceivers != null){
+        mReadLock.lock();
+        ArrayList<IMessageReceiver> readMessageReceivers = mReceiverMap.get(observer);
+        mReadLock.unlock();
+
+        if(readMessageReceivers != null){
+            mWriteLock.lock();
+
+            ArrayList<IMessageReceiver> messageReceivers = mReceiverMap.remove(observer);
             for(IMessageReceiver messageReceiver: messageReceivers){
                 messageReceiver.invalidateTarget();
                 List<MessageInfo> messageInfos = messageReceiver.messageInfos();
@@ -128,13 +134,20 @@ public class MessageBox {
                 messageInfos.clear();
             }
             messageReceivers.clear();
+
+            mWriteLock.unlock();
+
             return true;
         }
+
 
         return false;
     }
 
     public boolean sendMessage(MessageCarrier messageCarrier) {
+
+
+
         return true;
     }
 
