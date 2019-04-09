@@ -25,8 +25,8 @@ import java.lang.annotation.Target;
 
 /**
  * the method annotated with @MessageReceive will be invoked after a specific message is sent via MessageBox.sendMessage()
- * <li>executeThread specifies which thread this method will be executed on. for more details, please refer to {@link com.allenxuan.xuanyihuang.messagebox.others.MessageScheduler}</li>
- * <li>executeDelay specifies the delay time before this method is executed</li>
+ * executeThread specifies which thread this method will be executed on. for more details, please refer to {@link com.allenxuan.xuanyihuang.messagebox.others.MessageScheduler}
+ * executeDelay specifies the delay time before this method is executed
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

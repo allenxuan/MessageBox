@@ -18,10 +18,9 @@ package com.allenxuan.xuanyihuang.messagebox.others;
 
 /**
  * MessageScheduler specifies which thread a method, which is annotated with @MessageReceive, will be executed on.
- * <li>mainThread indicates the execution of the method will be post in main thread queue.</li>
- * <li>workThread indicates the execution of the method will be post in work thread queue.</li>
- * <li>sync indicate the method executes immediately in current thread.</li>
- *
+ * mainThread indicates the execution of the method will be post in main thread queue.
+ * workThread indicates the execution of the method will be post in work thread queue.
+ * sync indicate the method executes immediately in current thread.
  */
 public class MessageScheduler {
     public static final int mainThread = 1;
