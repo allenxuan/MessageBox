@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  * <li>executeDelay specifies the delay time before this method is executed</li>
  */
 @Target(ElementType.METHOD)
-@Retention(RetentionPolicy.SOURCE)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface MessageReceive {
     int executeThread() default MessageScheduler.sync;
 

@@ -176,7 +176,7 @@ public class MessageBoxAnnotationProcessor extends AbstractProcessor {
                 dispatchMessageMethodSpec.beginControlFlow("if(message instanceof $T)", specificMessageType);
                 dispatchMessageMethodSpec.addStatement("target.$L(($T)message)", methodName, specificMessageType);
             }else {
-                dispatchMessageMethodSpec.nextControlFlow("if(message instanceof $T)", specificMessageType);
+                dispatchMessageMethodSpec.nextControlFlow("else if(message instanceof $T)", specificMessageType);
                 dispatchMessageMethodSpec.addStatement("target.$L(($T)message)", methodName, specificMessageType);
             }
 

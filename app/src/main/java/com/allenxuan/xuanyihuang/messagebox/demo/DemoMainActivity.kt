@@ -5,12 +5,14 @@ import android.os.Bundle
 import com.allenxuan.xuanyihuang.messagebox.R
 import com.allenxuan.xuanyihuang.messagebox.annotation.MessageReceive
 import com.allenxuan.xuanyihuang.messagebox.annotation.SchedulerType
+import com.allenxuan.xuanyihuang.messagebox.core.MessageBox
 import com.allenxuan.xuanyihuang.messagebox.others.MessageScheduler
 
 class DemoMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        MessageBox.INSTANCE().subscribe(this)
         setContentView(R.layout.activity_demo_main)
 
         func1(100)
@@ -34,4 +36,9 @@ class DemoMainActivity : AppCompatActivity() {
 //    fun func4(event2: Event2) {
 //
 //    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MessageBox.INSTANCE().unSubscribe(this)
+    }
 }

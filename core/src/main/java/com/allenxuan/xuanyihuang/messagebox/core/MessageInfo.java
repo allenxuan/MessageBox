@@ -16,4 +16,16 @@ public class MessageInfo {
         this.executeThread = executeThread;
         this.executeDelay = executeDelay;
     }
+
+    public Class getMessageClass() {
+        return messageClass;
+    }
+
+    public int getExecuteThread() {
+        return executeThread;
+    }
+
+    public int getExecuteDelay() {
+        return executeDelay;
+    }
 }
