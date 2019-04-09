@@ -9,10 +9,7 @@ import com.allenxuan.xuanyihuang.messagebox.annotation.MessageReceive;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -71,21 +68,21 @@ public class MessageBox {
                         Constructor generatedClassConstructor = generatedClass.getDeclaredConstructor(originalClass);
                         generatedClassConstructor.setAccessible(true);
                         Object generatedClassObj = generatedClassConstructor.newInstance(observer);
-                        if(generatedClassObj instanceof IMessageReceiver){
+                        if (generatedClassObj instanceof IMessageReceiver) {
                             mWriteLock.lock();
 
                             IMessageReceiver messageReceiver = (IMessageReceiver) generatedClassObj;
                             ArrayList<IMessageReceiver> messageReceivers = mReceiverMap.get(observer);
-                            if(messageReceivers == null){
+                            if (messageReceivers == null) {
                                 messageReceivers = new ArrayList<IMessageReceiver>();
                                 mReceiverMap.put(observer, messageReceivers);
                             }
                             messageReceivers.add(messageReceiver);
 
                             List<MessageInfo> messageInfos = messageReceiver.messageInfos();
-                            for(MessageInfo messageInfo: messageInfos){
+                            for (MessageInfo messageInfo : messageInfos) {
                                 HashMap<IMessageReceiver, MessageInfo> specificMessageMap = mMessageMap.get(messageInfo.getMessageClass());
-                                if(specificMessageMap == null){
+                                if (specificMessageMap == null) {
                                     specificMessageMap = new HashMap<IMessageReceiver, MessageInfo>();
                                     mMessageMap.put(messageInfo.getMessageClass(), specificMessageMap);
                                 }
@@ -93,7 +90,7 @@ public class MessageBox {
                             }
 
                             mWriteLock.unlock();
-                        }else {
+                        } else {
                             return false;
                         }
                     } catch (Throwable throwable) {
@@ -118,16 +115,16 @@ public class MessageBox {
         ArrayList<IMessageReceiver> readMessageReceivers = mReceiverMap.get(observer);
         mReadLock.unlock();
 
-        if(readMessageReceivers != null){
+        if (readMessageReceivers != null) {
             mWriteLock.lock();
 
             ArrayList<IMessageReceiver> messageReceivers = mReceiverMap.remove(observer);
-            for(IMessageReceiver messageReceiver: messageReceivers){
+            for (IMessageReceiver messageReceiver : messageReceivers) {
                 messageReceiver.invalidateTarget();
                 List<MessageInfo> messageInfos = messageReceiver.messageInfos();
-                for(MessageInfo messageInfo: messageInfos){
+                for (MessageInfo messageInfo : messageInfos) {
                     HashMap<IMessageReceiver, MessageInfo> specificMessageMap = mMessageMap.get(messageInfo.getMessageClass());
-                    if(specificMessageMap != null){
+                    if (specificMessageMap != null) {
                         specificMessageMap.remove(messageReceiver);
                     }
                 }
@@ -144,11 +141,64 @@ public class MessageBox {
         return false;
     }
 
-    public boolean sendMessage(MessageCarrier messageCarrier) {
+    /**
+     * executeThread:
+     * <li>mainThread = 1</li>
+     * <li>workThread = 2</li>
+     * <li>sync = 3</li>
+     */
+    public boolean sendMessage(final MessageCarrier messageCarrier) {
+        mReadLock.lock();
 
+        HashMap<IMessageReceiver, MessageInfo> specificMessageMap = mMessageMap.get(messageCarrier.getClass());
+        if (specificMessageMap != null) {
+            Iterator<Map.Entry<IMessageReceiver, MessageInfo>> iterator = specificMessageMap.entrySet().iterator();
+            while (iterator.hasNext()) {
+                final Map.Entry<IMessageReceiver, MessageInfo> entry = iterator.next();
+                switch (entry.getValue().getExecuteThread()) {
+                    case 1:
+                        //mainThread
+                        Message mainThreadMessage = Message.obtain(mMainHandler, new Runnable() {
+                            @Override
+                            public void run() {
+                                entry.getKey().dispatchMessage(messageCarrier);
+                            }
+                        });
+                        if(entry.getValue().getExecuteDelay() > 0){
+                            mMainHandler.sendMessageDelayed(mainThreadMessage, entry.getValue().getExecuteDelay());
+                        }else {
+                            mMainHandler.sendMessage(mainThreadMessage);
+                        }
 
+                        break;
+                    case 2:
+                        //workThread
+                        Message workThreadMessage = Message.obtain(mWorkHandler, new Runnable() {
+                            @Override
+                            public void run() {
+                                entry.getKey().dispatchMessage(messageCarrier);
+                            }
+                        });
+                        if(entry.getValue().getExecuteDelay() > 0){
+                            mMainHandler.sendMessageDelayed(workThreadMessage, entry.getValue().getExecuteDelay());
+                        }else {
+                            mMainHandler.sendMessage(workThreadMessage);
+                        }
+                        break;
+                    case 3:
+                        //sync
+                        entry.getKey().dispatchMessage(messageCarrier);
+                        break;
+                    default:
+                        return false;
+                }
+            }
 
-        return true;
+            return true;
+        }
+        mReadLock.unlock();
+
+        return false;
     }
 
     private boolean annotatedWithMessageReceiver(Object observer) {
