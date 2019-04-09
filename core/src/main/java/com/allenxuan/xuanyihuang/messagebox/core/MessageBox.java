@@ -3,6 +3,7 @@ package com.allenxuan.xuanyihuang.messagebox.core;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import com.allenxuan.xuanyihuang.messagebox.annotation.MessageReceive;
 
@@ -113,7 +114,24 @@ public class MessageBox {
     }
 
     public boolean unSubscribe(Object observer) {
-        return true;
+        ArrayList<IMessageReceiver> messageReceivers = mReceiverMap.remove(observer);
+        if(messageReceivers != null){
+            for(IMessageReceiver messageReceiver: messageReceivers){
+                messageReceiver.invalidateTarget();
+                List<MessageInfo> messageInfos = messageReceiver.messageInfos();
+                for(MessageInfo messageInfo: messageInfos){
+                    HashMap<IMessageReceiver, MessageInfo> specificMessageMap = mMessageMap.get(messageInfo.getMessageClass());
+                    if(specificMessageMap != null){
+                        specificMessageMap.remove(messageReceiver);
+                    }
+                }
+                messageInfos.clear();
+            }
+            messageReceivers.clear();
+            return true;
+        }
+
+        return false;
     }
 
     public boolean sendMessage(MessageCarrier messageCarrier) {
