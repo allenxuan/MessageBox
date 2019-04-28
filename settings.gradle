@@ -1,1 +1,1 @@
-include ':app', ':messagebox-annotation', ':core', ':compiler'
+include ':app', ':messagebox-annotation', ':messagebox-core', ':messagebox-compiler'

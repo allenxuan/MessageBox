@@ -2,6 +2,9 @@ apply plugin: 'java-library'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    compileOnly 'com.github.allenxuan:messagebox-annotation:0.3.0'
+    implementation 'com.squareup:javapoet:1.10.0'
 }
 
 sourceCompatibility = "8"
@@ -9,13 +12,14 @@ targetCompatibility = "8"
 
 //ext {
 //    bintrayRepo = 'maven'
-//    bintrayName = 'messagebox-annotation'
+//    bintrayName = 'messagebox-compiler'
 //
 //    publishedGroupId = 'com.github.allenxuan'
-//    libraryName = 'messagebox-annotation'
-//    artifact = 'messagebox-annotation'
+//    libraryName = 'messagebox-compiler'
+//    artifact = 'messagebox-compiler'
 //
-//    libraryDescription = 'MessageBox is a message/event framework for Android/Java. messagebox-annotation is the annotation part of MessageBox.'
+//    libraryDescription = '\t\n' +
+//            'MessageBox is a message/event framework for Android/Java. messagebox-annotation is the annotation processor part of MessageBox.'
 //
 //    siteUrl = 'https://github.com/allenxuan/MessageBoxProject'
 //    gitUrl = 'https://github.com/allenxuan/MessageBoxProject.git'

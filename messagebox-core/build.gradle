@@ -1,21 +1,39 @@
-apply plugin: 'java-library'
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.github.allenxuan:messagebox-annotation:0.3.0'
 }
-
-sourceCompatibility = "8"
-targetCompatibility = "8"
 
 //ext {
 //    bintrayRepo = 'maven'
-//    bintrayName = 'messagebox-annotation'
+//    bintrayName = 'messagebox-core'
 //
 //    publishedGroupId = 'com.github.allenxuan'
-//    libraryName = 'messagebox-annotation'
-//    artifact = 'messagebox-annotation'
+//    libraryName = 'messagebox-core'
+//    artifact = 'messagebox-core'
 //
-//    libraryDescription = 'MessageBox is a message/event framework for Android/Java. messagebox-annotation is the annotation part of MessageBox.'
+//    libraryDescription = '\t\n' +
+//            'MessageBox is a message/event framework for Android/Java. messagebox-annotation is the core part of MessageBox.'
 //
 //    siteUrl = 'https://github.com/allenxuan/MessageBoxProject'
 //    gitUrl = 'https://github.com/allenxuan/MessageBoxProject.git'

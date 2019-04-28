@@ -9,9 +9,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/compiler" />
-            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/messagebox-annotation" />
+            <option value="$PROJECT_DIR$/messagebox-compiler" />
+            <option value="$PROJECT_DIR$/messagebox-core" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
