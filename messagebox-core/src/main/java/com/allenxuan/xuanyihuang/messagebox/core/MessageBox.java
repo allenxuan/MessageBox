@@ -32,7 +32,8 @@ public class MessageBox {
 
     private MessageBox() {
         mWorkHandlerThread = new HandlerThread("WorkHandlerThread");
-        mWorkHandler = new Handler(mWorkHandler.getLooper());
+        mWorkHandlerThread.start();
+        mWorkHandler = new Handler(mWorkHandlerThread.getLooper());
         mMainHandler = new Handler(Looper.getMainLooper());
 
         mReentrantReadWriteLock = new ReentrantReadWriteLock(true);
@@ -41,8 +42,6 @@ public class MessageBox {
 
         mReceiverMap = new ConcurrentHashMap<Object, ArrayList<IMessageReceiver>>();
         mMessageMap = new ConcurrentHashMap<Class, HashMap<IMessageReceiver, MessageInfo>>();
-
-        mWorkHandlerThread.start();
     }
 
     public boolean subscribe(Object observer) {
