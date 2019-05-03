@@ -26,16 +26,20 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/demo_main_fragment_a" />
 
-    <Button
+    <TextView
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="16sp"
         android:id="@+id/button"
+        android:padding="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:stateListAnimator="@null"
         android:text="Jump to Subordinate Activity"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/demo_main_fragment_b" />
+        app:layout_constraintTop_toBottomOf="@+id/demo_main_fragment_b"
+        android:background="@drawable/bg_buttom"/>
 
 </android.support.constraint.ConstraintLayout>
