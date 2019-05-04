@@ -9,20 +9,19 @@
 ![demo1](/screenshot/demo.gif)
 
 ### Dependencies:
-```
-//Java
-dependencies {
-    compileOnly 'com.github.allenxuan:messagebox-annotation:0.8.0'
-    implementation 'com.github.allenxuan:messagebox-core:0.8.0'
-    annotationProcessor 'com.github.allenxuan:messagebox-compiler:0.8.0'
-}
-
-
+```groovy
 //Kotlin
 dependencies {
     compileOnly 'com.github.allenxuan:messagebox-annotation:0.8.0'
     implementation 'com.github.allenxuan:messagebox-core:0.8.0'
     kapt 'com.github.allenxuan:messagebox-compiler:0.8.0'
+}
+
+//Java
+dependencies {
+    compileOnly 'com.github.allenxuan:messagebox-annotation:0.8.0'
+    implementation 'com.github.allenxuan:messagebox-core:0.8.0'
+    annotationProcessor 'com.github.allenxuan:messagebox-compiler:0.8.0'
 }
 ```
 
