@@ -3,7 +3,7 @@ apply plugin: 'java-library'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compileOnly 'com.github.allenxuan:messagebox-annotation:0.7.0'
+    compileOnly 'com.github.allenxuan:messagebox-annotation:0.8.0'
     implementation 'com.squareup:javapoet:1.10.0'
 }
 
@@ -24,7 +24,7 @@ targetCompatibility = "8"
 //    siteUrl = 'https://github.com/allenxuan/MessageBoxProject'
 //    gitUrl = 'https://github.com/allenxuan/MessageBoxProject.git'
 //
-//    libraryVersion = '0.7.0'
+//    libraryVersion = '0.8.0'
 //
 //    developerId = 'allenxuan'
 //    developerName = 'Xuanyi Huang'

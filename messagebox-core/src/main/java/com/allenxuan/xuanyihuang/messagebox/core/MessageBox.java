@@ -168,7 +168,6 @@ public class MessageBox {
                         }else {
                             mMainHandler.sendMessage(mainThreadMessage);
                         }
-
                         break;
                     case 2:
                         //workThread

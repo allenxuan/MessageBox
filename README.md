@@ -2,7 +2,7 @@
 #### A message/event framework for Android/Java
 
 ## Screenshot
-![demo1](/screenshot/demo.mov)
+![demo1](/screenshot/demo.gif)
 
 # License
 ```

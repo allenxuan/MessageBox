@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MessageReceive {
-    int executeThread() default MessageScheduler.sync;
+    int executeThread() default MessageScheduler.mainThread;
 
     int executeDelay() default 0;
 }
