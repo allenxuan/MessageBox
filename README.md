@@ -26,10 +26,60 @@ dependencies {
 ```
 
 ### Usages
-define your custom message class which extends MessageCarrier
+Subscribe and unSubscribe target object at appropriate places.
+```kotlin
+class DemoMainFragmentA : Fragment() {
+    ...
+    
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        MessageBox.INSTANCE().subscribe(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MessageBox.INSTANCE().unSubscribe(this)
+    }
+    
+    ...
+}
+```
+
+
+Define your custom message class which extends MessageCarrier.
 ```kotlin
 class Message1(val text: String) : MessageCarrier()
 ```
+
+Annotate a pubic method with @MessageReceive. This method will be invoked when a message is sent from somewhere.
+```kotlin
+class DemoMainFragmentA : Fragment() {
+     ...
+     
+    @MessageReceive
+    fun onReceiveMessage1(message1: Message1) {
+        //textReceiver could be a TextView
+        textReceiver?.text = message1.text
+    }
+    ...
+}
+```
+
+Send a message from anywhere you like.
+```kotlin
+class DemoMainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        ...
+        
+        findViewById<View>(R.id.sendMessage1)?.setOnClickListener {
+            MessageBox.INSTANCE().sendMessage(Message1("Message1 received"))
+        }
+        
+        ...
+    }
+}
+```
+
 
 
 # License
