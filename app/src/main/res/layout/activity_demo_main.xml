@@ -9,37 +9,75 @@
     <fragment
         android:id="@+id/demo_main_fragment_a"
         android:name="com.allenxuan.xuanyihuang.messagebox.demo.fragments.DemoMainFragmentA"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout="@layout/layout_fragment_demo_main_a" />
 
     <fragment
         android:id="@+id/demo_main_fragment_b"
         android:name="com.allenxuan.xuanyihuang.messagebox.demo.fragments.DemoMainFragmentB"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/demo_main_fragment_a" />
+        app:layout_constraintTop_toBottomOf="@+id/demo_main_fragment_a"
+        tools:layout="@layout/layout_fragment_demo_main_b" />
 
     <TextView
-        android:textColor="@android:color/white"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:id="@+id/button"
-        android:padding="10dp"
+        android:id="@+id/activity_jump_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/bg_button"
+        android:padding="10dp"
         android:text="Jump to Subordinate Activity"
         android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/demo_main_fragment_b"
-        android:background="@drawable/bg_buttom"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:id="@+id/sendMessage1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_button_send_message"
+        android:padding="10dp"
+        android:text="Send Message1"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/activity_jump_button"
+        app:layout_constraintEnd_toStartOf="@+id/main_activity_receive_text"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/main_activity_receive_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_button_receive_message"
+        android:padding="10dp"
+        android:text="no message received"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/activity_jump_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/sendMessage1" />
 </android.support.constraint.ConstraintLayout>

@@ -60,7 +60,7 @@ public class MessageBox {
                     }
                 }
                 for (String it : declaringClassNames) {
-                    String generatedClassName = String.format("%s$$$MessageReceiver", it);
+                    String generatedClassName = String.format("%s$$$$MessageReceiver", it);
                     try {
                         Class<?> generatedClass = Class.forName(generatedClassName);
                         Class<?> originalClass = Class.forName(it);
@@ -189,14 +189,16 @@ public class MessageBox {
                         entry.getKey().dispatchMessage(messageCarrier);
                         break;
                     default:
+                        mReadLock.unlock();
                         return false;
                 }
             }
 
+            mReadLock.unlock();
             return true;
         }
-        mReadLock.unlock();
 
+        mReadLock.unlock();
         return false;
     }
 
