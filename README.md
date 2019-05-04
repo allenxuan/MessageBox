@@ -1,6 +1,9 @@
 # MessageBox
 #### A message/event framework for Android/Java
 
+## Screenshot
+![demo1](/screenshot/demo.mov)
+
 # License
 ```
 Copyright 2019 Xuanyi Huang
