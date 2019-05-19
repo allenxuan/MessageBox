@@ -66,8 +66,9 @@ class DemoMainFragmentA : Fragment() {
 }
 ```
 
-You can also specify the execution thread and delay through parameters in @MessageReceive. For more details, please refer to com.allenxuan.xuanyihuang.messagebox.annotation.MessageReceive and
-com.allenxuan.xuanyihuang.messagebox.others.MessageScheduler
+You can also specify the execution thread and delay through parameters in @MessageReceive. For more details, please refer to 
+com.allenxuan.xuanyihuang.messagebox.annotation.MessageReceive and
+com.allenxuan.xuanyihuang.messagebox.others.MessageScheduler.
 ```kotlin
 class DemoMainFragmentA : Fragment() {
      ...
