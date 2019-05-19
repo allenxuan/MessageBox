@@ -26,7 +26,8 @@ dependencies {
 ```
 
 ### Usages
-Subscribe and unSubscribe target object at appropriate places.
+To obtain the ability of receiving messages, subscribe and unSubscribe the target object at appropriate places, usually within onCreate() and onDestroy() of Activity and Fragment.
+Make sure that a target object is unSubscribe or you may get memory leaked.
 ```kotlin
 class DemoMainFragmentA : Fragment() {
     ...
@@ -59,6 +60,21 @@ class DemoMainFragmentA : Fragment() {
     @MessageReceive
     fun onReceiveMessage1(message1: Message1) {
         //textReceiver could be a TextView
+        textReceiver?.text = message1.text
+    }
+    ...
+}
+```
+
+You can also specify the execution thread and delay through parameters in @MessageReceive. For more details, please refer to com.allenxuan.xuanyihuang.messagebox.annotation.MessageReceive and
+com.allenxuan.xuanyihuang.messagebox.others.MessageScheduler
+```kotlin
+class DemoMainFragmentA : Fragment() {
+     ...
+     
+     //This method will be invoked on main thread after 3000 milliseconds since Message1 is sent from somewhere.
+    @MessageReceive(executeThread = MessageScheduler.mainThread, executeDelay = 3000)
+    fun onReceiveMessage1(message1: Message1) {
         textReceiver?.text = message1.text
     }
     ...

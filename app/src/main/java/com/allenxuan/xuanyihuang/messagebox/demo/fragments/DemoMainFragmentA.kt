@@ -10,6 +10,7 @@ import com.allenxuan.xuanyihuang.messagebox.R
 import com.allenxuan.xuanyihuang.messagebox.annotation.MessageReceive
 import com.allenxuan.xuanyihuang.messagebox.core.MessageBox
 import com.allenxuan.xuanyihuang.messagebox.demo.messages.*
+import com.allenxuan.xuanyihuang.messagebox.others.MessageScheduler
 
 class DemoMainFragmentA : Fragment() {
     private var textReceiver: TextView? = null
@@ -41,7 +42,7 @@ class DemoMainFragmentA : Fragment() {
         MessageBox.INSTANCE().unSubscribe(this)
     }
 
-    @MessageReceive
+    @MessageReceive(executeThread = MessageScheduler.mainThread, executeDelay = 3000)
     fun onReceiveMessage1(message1: Message1) {
         textReceiver?.text = message1.text
     }
