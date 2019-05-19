@@ -67,8 +67,14 @@ class DemoMainFragmentA : Fragment() {
 ```
 
 You can also specify the execution thread and delay through parameters in @MessageReceive. For more details, please refer to 
-com.allenxuan.xuanyihuang.messagebox.annotation.MessageReceive and
-com.allenxuan.xuanyihuang.messagebox.others.MessageScheduler.
+```kotlin
+com.allenxuan.xuanyihuang.messagebox.annotation.MessageReceive
+```
+and
+```kotlin
+com.allenxuan.xuanyihuang.messagebox.others.MessageScheduler
+```
+
 ```kotlin
 class DemoMainFragmentA : Fragment() {
      ...
@@ -82,7 +88,7 @@ class DemoMainFragmentA : Fragment() {
 }
 ```
 
-Send a message from anywhere you like.
+Finally, send a message from anywhere you like.
 ```kotlin
 class DemoMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
