@@ -115,25 +115,27 @@ public class MessageBox {
         mReadLock.unlock();
 
         if (readMessageReceivers != null) {
-            mWriteLock.lock();
-
             ArrayList<IMessageReceiver> messageReceivers = mReceiverMap.remove(observer);
-            for (IMessageReceiver messageReceiver : messageReceivers) {
-                messageReceiver.invalidateTarget();
-                List<MessageInfo> messageInfos = messageReceiver.messageInfos();
-                for (MessageInfo messageInfo : messageInfos) {
-                    HashMap<IMessageReceiver, MessageInfo> specificMessageMap = mMessageMap.get(messageInfo.getMessageClass());
-                    if (specificMessageMap != null) {
-                        specificMessageMap.remove(messageReceiver);
+            if (messageReceivers != null) {
+                mWriteLock.lock();
+
+                for (IMessageReceiver messageReceiver : messageReceivers) {
+                    messageReceiver.invalidateTarget();
+                    List<MessageInfo> messageInfos = messageReceiver.messageInfos();
+                    for (MessageInfo messageInfo : messageInfos) {
+                        HashMap<IMessageReceiver, MessageInfo> specificMessageMap = mMessageMap.get(messageInfo.getMessageClass());
+                        if (specificMessageMap != null) {
+                            specificMessageMap.remove(messageReceiver);
+                        }
                     }
+                    messageInfos.clear();
                 }
-                messageInfos.clear();
+                messageReceivers.clear();
+
+                mWriteLock.unlock();
+
+                return true;
             }
-            messageReceivers.clear();
-
-            mWriteLock.unlock();
-
-            return true;
         }
 
 
@@ -163,9 +165,9 @@ public class MessageBox {
                                 entry.getKey().dispatchMessage(messageCarrier);
                             }
                         });
-                        if(entry.getValue().getExecuteDelay() > 0){
+                        if (entry.getValue().getExecuteDelay() > 0) {
                             mMainHandler.sendMessageDelayed(mainThreadMessage, entry.getValue().getExecuteDelay());
-                        }else {
+                        } else {
                             mMainHandler.sendMessage(mainThreadMessage);
                         }
                         break;
@@ -177,9 +179,9 @@ public class MessageBox {
                                 entry.getKey().dispatchMessage(messageCarrier);
                             }
                         });
-                        if(entry.getValue().getExecuteDelay() > 0){
+                        if (entry.getValue().getExecuteDelay() > 0) {
                             mMainHandler.sendMessageDelayed(workThreadMessage, entry.getValue().getExecuteDelay());
-                        }else {
+                        } else {
                             mMainHandler.sendMessage(workThreadMessage);
                         }
                         break;
