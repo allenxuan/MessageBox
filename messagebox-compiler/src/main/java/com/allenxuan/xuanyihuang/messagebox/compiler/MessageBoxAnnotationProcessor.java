@@ -11,7 +11,7 @@ import javax.tools.Diagnostic;
 import java.util.*;
 
 public class MessageBoxAnnotationProcessor extends AbstractProcessor {
-    public static final String MESSAGE_RECEIVE_CLASS_SUFFUX = "$$$$MessageReceiver";
+    public static final String MESSAGE_RECEIVE_CLASS_SUFFIX = "$$$$MessageReceiver";
 
     /**
      * for writing .java file
@@ -104,7 +104,7 @@ public class MessageBoxAnnotationProcessor extends AbstractProcessor {
         if (isMessageReceiveAnnotatedMethodValid(method)) {
             Element typeElement = method.getEnclosingElement();
             Element packageElement = typeElement.getEnclosingElement();
-            String classFullName = packageElement.toString() + "." + typeElement.getSimpleName() + MESSAGE_RECEIVE_CLASS_SUFFUX;
+            String classFullName = packageElement.toString() + "." + typeElement.getSimpleName() + MESSAGE_RECEIVE_CLASS_SUFFIX;
             ArrayList<ExecutableElement> executableElements = mGeneratedClassesInfo.get(classFullName);
             if (executableElements == null) {
                 executableElements = new ArrayList<ExecutableElement>();
