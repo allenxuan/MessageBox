@@ -18,7 +18,7 @@ class DemoSubordinateActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MessageBox.INSTANCE().subscribe(this)
+        MessageBox.subscribe(this)
 
         setContentView(R.layout.activity_demo_subordinate)
         initViews()
@@ -27,13 +27,13 @@ class DemoSubordinateActivity : AppCompatActivity() {
     private fun initViews() {
         supportActionBar?.title = "Demo Subordinate Activity"
         findViewById<View>(R.id.sendMessage4)?.setOnClickListener {
-            MessageBox.INSTANCE().sendMessage(Message4("Message4 received"))
+            MessageBox.sendMessage(Message4("Message4 received"))
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        MessageBox.INSTANCE().unSubscribe(this)
+        MessageBox.unSubscribe(this)
     }
 
     @MessageReceive

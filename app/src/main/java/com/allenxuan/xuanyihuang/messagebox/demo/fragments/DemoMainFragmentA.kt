@@ -17,7 +17,7 @@ class DemoMainFragmentA : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MessageBox.INSTANCE().subscribe(this)
+        MessageBox.subscribe(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -32,14 +32,14 @@ class DemoMainFragmentA : Fragment() {
 
     private fun initViews(rootView: View) {
         rootView.findViewById<View>(R.id.sendMessage2)?.setOnClickListener {
-            MessageBox.INSTANCE().sendMessage(Message2("Message2 received"))
+            MessageBox.sendMessage(Message2("Message2 received"))
         }
         textReceiver = rootView.findViewById<TextView>(R.id.fragment_a_receive_text)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        MessageBox.INSTANCE().unSubscribe(this)
+        MessageBox.unSubscribe(this)
     }
 
     @MessageReceive(executeThread = MessageScheduler.mainThread, executeDelay = 3000)

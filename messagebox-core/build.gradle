@@ -21,7 +21,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.github.allenxuan:messagebox-annotation:1.0.0'
+    implementation 'com.github.allenxuan:messagebox-annotation:1.1.0'
 }
 
 //ext {
@@ -38,7 +38,7 @@ dependencies {
 //    siteUrl = 'https://github.com/allenxuan/MessageBoxProject'
 //    gitUrl = 'https://github.com/allenxuan/MessageBoxProject.git'
 //
-//    libraryVersion = '1.0.0'
+//    libraryVersion = '1.1.0'
 //
 //    developerId = 'allenxuan'
 //    developerName = 'Xuanyi Huang'

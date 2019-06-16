@@ -17,7 +17,7 @@ class DemoMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MessageBox.INSTANCE().subscribe(this)
+        MessageBox.subscribe(this)
 
         setContentView(R.layout.activity_demo_main)
         initViews()
@@ -29,13 +29,13 @@ class DemoMainActivity : AppCompatActivity() {
             startActivity(Intent(this, DemoSubordinateActivity::class.java))
         }
         findViewById<View>(R.id.sendMessage1)?.setOnClickListener {
-            MessageBox.INSTANCE().sendMessage(Message1("Message1 received"))
+            MessageBox.sendMessage(Message1("Message1 received"))
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        MessageBox.INSTANCE().unSubscribe(this)
+        MessageBox.unSubscribe(this)
     }
 
     @MessageReceive

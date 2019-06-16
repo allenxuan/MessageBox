@@ -44,8 +44,19 @@ public class MessageBox {
         mMessageMap = new ConcurrentHashMap<Class, HashMap<IMessageReceiver, MessageInfo>>();
     }
 
-    public boolean subscribe(Object observer) {
-        if (mReceiverMap.get(observer) != null || !annotatedWithMessageReceiver(observer)) {
+    public static boolean subscribe(Object observer) {
+        if (observer == null) {
+            return false;
+        }
+        return SingletonHolder.singleton.subscribeInner(observer);
+    }
+
+    private boolean subscribeInner(Object observer) {
+        mReadLock.lock();
+        ArrayList<IMessageReceiver> iMessageReceivers = mReceiverMap.get(observer);
+        mReadLock.unlock();
+        boolean isMessageReceiverAnnotationExisted = annotatedWithMessageReceiver(observer);
+        if (iMessageReceivers != null || !isMessageReceiverAnnotationExisted) {
             return false;
         } else {
             Method[] methods = observer.getClass().getMethods();
@@ -105,20 +116,25 @@ public class MessageBox {
             }
         }
 
-
         return false;
     }
 
-    public boolean unSubscribe(Object observer) {
+    public static boolean unSubscribe(Object observer) {
+        if (observer == null) {
+            return false;
+        }
+        return SingletonHolder.singleton.unSubscribeInner(observer);
+    }
+
+    private boolean unSubscribeInner(Object observer) {
         mReadLock.lock();
         ArrayList<IMessageReceiver> readMessageReceivers = mReceiverMap.get(observer);
         mReadLock.unlock();
 
         if (readMessageReceivers != null) {
+            mWriteLock.lock();
             ArrayList<IMessageReceiver> messageReceivers = mReceiverMap.remove(observer);
             if (messageReceivers != null) {
-                mWriteLock.lock();
-
                 for (IMessageReceiver messageReceiver : messageReceivers) {
                     messageReceiver.invalidateTarget();
                     List<MessageInfo> messageInfos = messageReceiver.messageInfos();
@@ -131,15 +147,22 @@ public class MessageBox {
                     messageInfos.clear();
                 }
                 messageReceivers.clear();
-
                 mWriteLock.unlock();
-
                 return true;
+            } else {
+                mWriteLock.unlock();
+                return false;
             }
         }
 
-
         return false;
+    }
+
+    public static boolean sendMessage(final MessageCarrier messageCarrier) {
+        if (messageCarrier == null) {
+            return false;
+        }
+        return SingletonHolder.singleton.sendMessageInner(messageCarrier);
     }
 
     /**
@@ -148,7 +171,7 @@ public class MessageBox {
      * <li>workThread = 2</li>
      * <li>sync = 3</li>
      */
-    public boolean sendMessage(final MessageCarrier messageCarrier) {
+    private boolean sendMessageInner(final MessageCarrier messageCarrier) {
         mReadLock.lock();
 
         HashMap<IMessageReceiver, MessageInfo> specificMessageMap = mMessageMap.get(messageCarrier.getClass());
@@ -214,10 +237,6 @@ public class MessageBox {
         }
 
         return false;
-    }
-
-    public static MessageBox INSTANCE() {
-        return SingletonHolder.singleton;
     }
 
     private static class SingletonHolder {

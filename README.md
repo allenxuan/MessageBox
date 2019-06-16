@@ -1,6 +1,6 @@
 # MessageBox
 [![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://developer.android.com/index.html)
-[![License](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://jcenter.bintray.com/com/github/allenxuan/)
+[![License](https://img.shields.io/badge/Version-1.1.0-blue.svg)](https://jcenter.bintray.com/com/github/allenxuan/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 #### Messagebox is a message/event framework for Android.
@@ -12,16 +12,16 @@
 ```groovy
 //Kotlin
 dependencies {
-    compileOnly 'com.github.allenxuan:messagebox-annotation:1.0.0'
-    implementation 'com.github.allenxuan:messagebox-core:1.0.0'
-    kapt 'com.github.allenxuan:messagebox-compiler:1.0.0'
+    compileOnly 'com.github.allenxuan:messagebox-annotation:1.1.0'
+    implementation 'com.github.allenxuan:messagebox-core:1.1.0'
+    kapt 'com.github.allenxuan:messagebox-compiler:1.1.0'
 }
 
 //Java
 dependencies {
-    compileOnly 'com.github.allenxuan:messagebox-annotation:1.0.0'
-    implementation 'com.github.allenxuan:messagebox-core:1.0.0'
-    annotationProcessor 'com.github.allenxuan:messagebox-compiler:1.0.0'
+    compileOnly 'com.github.allenxuan:messagebox-annotation:1.1.0'
+    implementation 'com.github.allenxuan:messagebox-core:1.1.0'
+    annotationProcessor 'com.github.allenxuan:messagebox-compiler:1.1.0'
 }
 ```
 
@@ -34,12 +34,12 @@ class DemoMainFragmentA : Fragment() {
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MessageBox.INSTANCE().subscribe(this)
+        MessageBox.subscribe(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        MessageBox.INSTANCE().unSubscribe(this)
+        MessageBox.unSubscribe(this)
     }
     
     ...
@@ -95,7 +95,7 @@ class DemoMainActivity : AppCompatActivity() {
         ...
         
         findViewById<View>(R.id.sendMessage1)?.setOnClickListener {
-            MessageBox.INSTANCE().sendMessage(Message1("Message1 received"))
+            MessageBox.sendMessage(Message1("Message1 received"))
         }
         
         ...
