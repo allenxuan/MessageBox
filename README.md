@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/Version-1.1.0-blue.svg)](https://jcenter.bintray.com/com/github/allenxuan/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
-#### Messagebox is a message/event framework for Android.
+#### Messagebox is a lightweight message/event framework for Android.
 
 ### Screenshot
 ![demo1](/screenshot/demo.gif)
