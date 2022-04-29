@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
-apply plugin: 'maven-publish'
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
     compileSdkVersion 28
@@ -26,20 +26,6 @@ group = 'com.github.allenxuan'
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.github.allenxuan.MessageBox:messagebox-annotation:v3.0.0'
-}
-
-publishing {
-    publications {
-        release(MavenPublication) {
-//            groupId = 'com.github.allenxuan.MessageBox'
-//            artifactId = 'messagebox-core'
-//            version = 'v4.0.0'
-
-            afterEvaluate {
-                from components.release
-            }
-        }
-    }
 }
 
 //ext {
