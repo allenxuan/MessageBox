@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
 
 android {
     compileSdkVersion 28
@@ -18,6 +19,8 @@ android {
     }
 
 }
+
+group = 'com.github.allenxuan'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
