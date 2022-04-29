@@ -33,7 +33,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.allenxuan.MessageBox'
             artifactId = 'messagebox-core'
-            version = 'v2.0.0'
+            version = 'v3.0.0'
 
             afterEvaluate {
                 from components.release
