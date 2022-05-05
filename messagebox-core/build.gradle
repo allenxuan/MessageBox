@@ -22,14 +22,14 @@ android {
 
 group = 'com.github.allenxuan'
 
-afterEvaluate {
-    publishing {
-        publications {
-            release(MavenPublication) {
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.github.allenxuan.MessageBox'
+            artifactId = 'messagebox-core'
+            version = 'v4.0.3'
+            afterEvaluate {
                 from components.release
-                groupId = 'com.github.allenxuan.MessageBox'
-                artifactId = 'messagebox-core'
-                version = 'v4.0.3'
             }
         }
     }
