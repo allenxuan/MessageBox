@@ -3,7 +3,7 @@ apply plugin: 'java-library'
 apply plugin: 'maven-publish'
 
 group = 'com.github.allenxuan'
-version = "1.6.0"
+version = "annotation-1.8.0"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -22,7 +22,7 @@ publishing {
     publications {
         release(MavenPublication) {
             groupId = project.group
-            artifactId = project.name
+            artifactId = "Messagebox"
             version = project.version
             from components.java
             pom.withXml {
