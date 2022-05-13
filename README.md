@@ -1,6 +1,6 @@
 # MessageBox
 [![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://developer.android.com/index.html)
-[![License](https://img.shields.io/badge/Version-1.1.0-blue.svg)](https://jcenter.bintray.com/com/github/allenxuan/)
+[![License](https://img.shields.io/badge/Version-1.9.4-blue.svg)](https://jcenter.bintray.com/com/github/allenxuan/)
 [![License](https://img.shields.io/badge/License-Apache%202.0-red.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 #### Messagebox is a lightweight message/event framework for Android.
@@ -12,16 +12,16 @@
 ```groovy
 //Kotlin
 dependencies {
-    compileOnly 'com.github.allenxuan:messagebox-annotation:1.1.0'
-    implementation 'com.github.allenxuan:messagebox-core:1.1.0'
-    kapt 'com.github.allenxuan:messagebox-compiler:1.1.0'
+    implementation 'com.github.allenxuan.MessageBox:messagebox-annotation:1.9.4'
+    implementation 'com.github.allenxuan.MessageBox:messagebox-core:1.9.4'
+    kapt 'com.github.allenxuan.MessageBox:messagebox-compiler:1.9.4'
 }
 
 //Java
 dependencies {
-    compileOnly 'com.github.allenxuan:messagebox-annotation:1.1.0'
-    implementation 'com.github.allenxuan:messagebox-core:1.1.0'
-    annotationProcessor 'com.github.allenxuan:messagebox-compiler:1.1.0'
+    implementation 'com.github.allenxuan.MessageBox:messagebox-annotation:1.9.4'
+    implementation 'com.github.allenxuan.MessageBox:messagebox-core:1.9.4'
+    annotationProcessor 'com.github.allenxuan.MessageBox:messagebox-compiler:1.9.4'
 }
 ```
 
@@ -107,7 +107,7 @@ class DemoMainActivity : AppCompatActivity() {
 
 # License
 ```
-Copyright 2019 Xuanyi Huang
+Copyright 2022 Xuanyi Huang
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
