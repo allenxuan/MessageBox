@@ -22,7 +22,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.allenxuan'
             artifactId = 'messagebox-annotation'
-            version = 'core-1.5.0'
+            version = '1.5.0'
 
 //            afterEvaluate {
                 from components.java
