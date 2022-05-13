@@ -33,15 +33,15 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-    compileOnly project(':messagebox-annotation')
-    implementation project(':messagebox-core')
-    kapt project(':messagebox-compiler')
+//    compileOnly project(':messagebox-annotation')
+//    implementation project(':messagebox-core')
+//    kapt project(':messagebox-compiler')
 
 //    compileOnly 'com.github.allenxuan:messagebox-annotation:1.1.0'
 //    implementation 'com.github.allenxuan:messagebox-core:1.1.0'
 //    kapt 'com.github.allenxuan:messagebox-compiler:1.1.0'
 
-//    implementation 'com.github.allenxuan:MessageBox:annotation-1.9.3'
-//    implementation 'com.github.allenxuan:MessageBox:core-1.9.3'
-//    kapt 'com.github.allenxuan:MessageBox:compiler-1.9.3'
+    implementation 'com.github.allenxuan.MessageBox:messagebox-annotation:1.9.4'
+    implementation 'com.github.allenxuan.MessageBox:messagebox-core:1.9.4'
+    kapt 'com.github.allenxuan.MessageBox:messagebox-compiler:1.9.4'
 }
