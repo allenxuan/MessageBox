@@ -1,12 +1,12 @@
 apply plugin: 'java-library'
-//apply plugin: 'maven'
+apply plugin: 'maven'
 
-//group = 'com.github.allenxuan'
+group = 'com.github.allenxuan'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compileOnly 'com.github.allenxuan.MessageBox:messagebox-annotation:v4.0.2'
+    compileOnly 'com.github.allenxuan:MessageBox:annotation-1.2.0'
     implementation 'com.squareup:javapoet:1.10.0'
 }
 
