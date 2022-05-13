@@ -79,6 +79,14 @@ android {
 //
 //                    configurations.api.getDependencies().each { dep -> addDependency(dep, "api") }
 //                    configurations.implementation.getDependencies().each { dep -> addDependency(dep, "implementation") }
+//                    configurations.provided.getDependencies().each { dep -> addDependency(dep, "provided") }
+//                    configurations.compileOnly.getDependencies().each { dep -> addDependency(dep, "compileOnly") }
+//                    configurations.runtimeOnly.getDependencies().each { dep -> addDependency(dep, "runtimeOnly") }
+////                    println configurations.api.getDependencies()
+////                    println configurations.implementation.getDependencies()
+////                    println configurations.provided.getDependencies()
+////                    println configurations.runtimeOnly.getDependencies()
+////                    println configurations.compileOnly.getDependencies()
 //                }
 //            }
 //        }
