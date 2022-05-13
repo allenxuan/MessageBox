@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
+//apply plugin: 'maven-publish'
 //apply plugin: 'com.github.dcendents.android-maven'
 
-group = 'com.github.allenxuan'
-version = "1.9.0"
+//group = 'com.github.allenxuan'
+//version = "1.9.0"
 
 android {
     compileSdkVersion 32
@@ -23,39 +23,39 @@ android {
     }
 }
 
-task sourceJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier "sources"
-}
-
-task javadoc(type: Javadoc) {
-    failOnError false
-    source = android.sourceSets.main.java.sourceFiles
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-    classpath += configurations.compile
-}
-
-// build a jar with javadoc
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier 'javadoc'
-    from javadoc.destinationDir
-}
-
-publishing {
-    publications {
-        release(MavenPublication) {
-            groupId = project.group
-            artifactId = project.name
-            version = project.version
-
-            afterEvaluate {
-                from components.release
-                artifact(sourceJar)
-                artifact(javadocJar)
-            }
-        }
-    }
-}
+//task sourceJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier "sources"
+//}
+//
+//task javadoc(type: Javadoc) {
+//    failOnError false
+//    source = android.sourceSets.main.java.sourceFiles
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//    classpath += configurations.compile
+//}
+//
+//// build a jar with javadoc
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier 'javadoc'
+//    from javadoc.destinationDir
+//}
+//
+//publishing {
+//    publications {
+//        release(MavenPublication) {
+//            groupId = project.group
+//            artifactId = project.name
+//            version = project.version
+//
+//            afterEvaluate {
+//                from components.release
+//                artifact(sourceJar)
+//                artifact(javadocJar)
+//            }
+//        }
+//    }
+//}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
