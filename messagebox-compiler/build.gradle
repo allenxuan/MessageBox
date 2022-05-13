@@ -1,14 +1,14 @@
 apply plugin: 'java-library'
 //apply plugin: 'maven'
-//apply plugin: 'maven-publish'
+apply plugin: 'maven-publish'
 
-//group = 'com.github.allenxuan'
-//version = "compiler-1.8.0"
+group = 'com.github.allenxuan'
+version = "1.9.0"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compileOnly 'com.github.allenxuan:MessageBox:annotation-1.8.0'
+    compileOnly 'com.github.allenxuan:MessageBox:annotation-1.9.0'
     implementation 'com.squareup:javapoet:1.10.0'
 }
 
@@ -20,16 +20,16 @@ java {
     withSourcesJar()
 }
 
-//publishing {
-//    publications {
-//        release(MavenPublication) {
-//            groupId = project.group
-//            artifactId = "Messagebox"
-//            version = project.version
-//            from components.java
-//        }
-//    }
-//}
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = project.group
+            artifactId = project.name
+            version = project.version
+            from components.java
+        }
+    }
+}
 
 //ext {
 //    bintrayRepo = 'maven'
