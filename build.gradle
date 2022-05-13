@@ -25,6 +25,12 @@ allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
     }
+
+
+    allprojects {
+        group = 'com.github.allenxuan'
+        version = "1.9.4"
+    }
 }
 
 task clean(type: Delete) {

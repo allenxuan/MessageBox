@@ -1,47 +1,44 @@
 apply plugin: 'java-library'
 //apply plugin: 'maven'
-//apply plugin: 'maven-publish'
-//
-//group = 'com.github.allenxuan'
-//version = "1.9.3"
+apply plugin: 'maven-publish'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compileOnly 'com.github.allenxuan:MessageBox:annotation-1.9.3'
+    compileOnly project(':messagebox-annotation')
     implementation 'com.squareup:javapoet:1.10.0'
 }
 
 sourceCompatibility = "8"
 targetCompatibility = "8"
 
-//java {
-//    withJavadocJar()
-//    withSourcesJar()
-//}
-//
-//publishing {
-//    publications {
-//        release(MavenPublication) {
-//            groupId = project.group
-//            artifactId = project.name
-//            version = project.version
-//            from components.java
-//
-//            pom.withXml {
-//                project.configurations.compileOnly.allDependencies.each { dep ->
-//                    asNode().dependencies[0].appendNode('dependency').with {
-//                        it.appendNode('groupId', dep.group)
-//                        it.appendNode('artifactId', dep.name)
-//                        it.appendNode('version', dep.version)
-//                        it.appendNode('scope', 'provided')
-//                    }
-//                }
-//
-//            }
-//        }
-//    }
-//}
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = project.group
+            artifactId = project.name
+            version = project.version
+            from components.java
+
+            pom.withXml {
+                project.configurations.compileOnly.allDependencies.each { dep ->
+                    asNode().dependencies[0].appendNode('dependency').with {
+                        it.appendNode('groupId', dep.group)
+                        it.appendNode('artifactId', dep.name)
+                        it.appendNode('version', dep.version)
+                        it.appendNode('scope', 'provided')
+                    }
+                }
+
+            }
+        }
+    }
+}
 
 //ext {
 //    bintrayRepo = 'maven'

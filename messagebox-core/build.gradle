@@ -2,9 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 //apply plugin: 'com.github.dcendents.android-maven'
 
-group = 'com.github.allenxuan'
-version = "1.9.3"
-
 android {
     compileSdkVersion 32
 
@@ -25,7 +22,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.github.allenxuan:MessageBox:annotation-1.9.3'
+    implementation project(':messagebox-annotation')
 }
 
 task sourceJar(type: Jar) {

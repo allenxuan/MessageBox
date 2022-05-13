@@ -41,7 +41,7 @@ dependencies {
 //    implementation 'com.github.allenxuan:messagebox-core:1.1.0'
 //    kapt 'com.github.allenxuan:messagebox-compiler:1.1.0'
 
-//    implementation 'com.github.allenxuan:MessageBox:annotation-1.9.0'
-//    implementation 'com.github.allenxuan:MessageBox:core-1.9.0'
-//    kapt 'com.github.allenxuan:MessageBox:compiler-1.9.0'
+//    implementation 'com.github.allenxuan:MessageBox:annotation-1.9.3'
+//    implementation 'com.github.allenxuan:MessageBox:core-1.9.3'
+//    kapt 'com.github.allenxuan:MessageBox:compiler-1.9.3'
 }
