@@ -10,7 +10,7 @@ android {
     compileSdkVersion 32
     defaultConfig {
         applicationId "com.allenxuan.xuanyihuang.messagebox"
-        minSdkVersion 19
+        minSdkVersion 14
         targetSdkVersion 32
         versionCode 1
         versionName "1.0"

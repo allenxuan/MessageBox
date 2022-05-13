@@ -1,13 +1,16 @@
 apply plugin: 'com.android.library'
-//apply plugin: 'maven-publish'
+apply plugin: 'maven-publish'
 //apply plugin: 'com.github.dcendents.android-maven'
 
+group = 'com.github.allenxuan'
+version = "1.9.0"
+
 android {
-    compileSdkVersion 28
+    compileSdkVersion 32
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 28
+        minSdkVersion 14
+        targetSdkVersion 32
         versionCode 1
         versionName "1.0"
     }
@@ -18,84 +21,45 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
 }
 
-//group = 'com.github.allenxuan'
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
 
-//publishing {
-//    publications {
-//        release(MavenPublication) {
-//            groupId = 'com.github.allenxuan'
-//            artifactId = 'MessageBox'
-//            version = 'core-1.4.0'
-//
-//            afterEvaluate {
-//                from components.release
-//
-//                pom.withXml {
-//                    final dependenciesNode = asNode().appendNode('dependencies')
-//
-//                    ext.addDependency = { Dependency dep, String scope ->
-//                        if (dep.group == null || dep.version == null || dep.name == null || dep.name == "unspecified")
-//                            return // invalid dependencies should be ignored
-//
-//                        final dependencyNode = dependenciesNode.appendNode('dependency')
-//                        dependencyNode.appendNode('artifactId', dep.name)
-//
-//                        if (dep.version == 'unspecified') {
-//                            dependencyNode.appendNode('groupId', project.ext.pomGroupID)
-//                            dependencyNode.appendNode('version', project.ext.pomVersion)
-//                            System.println("${project.ext.pomGroupID} ${dep.name} ${project.ext.pomVersion}")
-//                        } else {
-//                            dependencyNode.appendNode('groupId', dep.group)
-//                            dependencyNode.appendNode('version', dep.version)
-//                            System.println("${dep.group} ${dep.name} ${dep.version}")
-//                        }
-//
-//                        dependencyNode.appendNode('scope', scope)
-//                        // Some dependencies may have types, such as aar, that should be mentioned in the POM file
-//                        def artifactsList = dep.properties['artifacts']
-//                        if (artifactsList != null && artifactsList.size() > 0) {
-//                            final artifact = artifactsList[0]
-//                            dependencyNode.appendNode('type', artifact.getType())
-//                        }
-//
-//                        if (!dep.transitive) {
-//                            // In case of non transitive dependency, all its dependencies should be force excluded from them POM file
-//                            final exclusionNode = dependencyNode.appendNode('exclusions').appendNode('exclusion')
-//                            exclusionNode.appendNode('groupId', '*')
-//                            exclusionNode.appendNode('artifactId', '*')
-//                        } else if (!dep.properties.excludeRules.empty) {
-//                            // For transitive with exclusions, all exclude rules should be added to the POM file
-//                            final exclusions = dependencyNode.appendNode('exclusions')
-//                            dep.properties.excludeRules.each { ExcludeRule rule ->
-//                                final exclusionNode = exclusions.appendNode('exclusion')
-//                                exclusionNode.appendNode('groupId', rule.group ?: '*')
-//                                exclusionNode.appendNode('artifactId', rule.module ?: '*')
-//                            }
-//                        }
-//                    }
-//
-//                    configurations.api.getDependencies().each { dep -> addDependency(dep, "api") }
-//                    configurations.implementation.getDependencies().each { dep -> addDependency(dep, "implementation") }
-//                    configurations.provided.getDependencies().each { dep -> addDependency(dep, "provided") }
-//                    configurations.compileOnly.getDependencies().each { dep -> addDependency(dep, "compileOnly") }
-//                    configurations.runtimeOnly.getDependencies().each { dep -> addDependency(dep, "runtimeOnly") }
-////                    println configurations.api.getDependencies()
-////                    println configurations.implementation.getDependencies()
-////                    println configurations.provided.getDependencies()
-////                    println configurations.runtimeOnly.getDependencies()
-////                    println configurations.compileOnly.getDependencies()
-//                }
-//            }
-//        }
-//    }
-//}
+task javadoc(type: Javadoc) {
+    failOnError false
+    source = android.sourceSets.main.java.sourceFiles
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+    classpath += configurations.compile
+}
+
+// build a jar with javadoc
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier 'javadoc'
+    from javadoc.destinationDir
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = project.group
+            artifactId = project.name
+            version = project.version
+
+            afterEvaluate {
+                from components.release
+                artifact(sourceJar)
+                artifact(javadocJar)
+            }
+        }
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.github.allenxuan:MessageBox:annotation-1.2.0'
+    implementation 'com.github.allenxuan:MessageBox:annotation-1.9.0'
 }
 
 //ext {

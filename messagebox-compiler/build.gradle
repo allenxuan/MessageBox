@@ -1,9 +1,9 @@
 apply plugin: 'java-library'
 //apply plugin: 'maven'
-apply plugin: 'maven-publish'
-
-group = 'com.github.allenxuan'
-version = "1.9.0"
+//apply plugin: 'maven-publish'
+//
+//group = 'com.github.allenxuan'
+//version = "1.9.0"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -15,21 +15,21 @@ dependencies {
 sourceCompatibility = "8"
 targetCompatibility = "8"
 
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
+//java {
+//    withJavadocJar()
+//    withSourcesJar()
+//}
 
-publishing {
-    publications {
-        release(MavenPublication) {
-            groupId = project.group
-            artifactId = project.name
-            version = project.version
-            from components.java
-        }
-    }
-}
+//publishing {
+//    publications {
+//        release(MavenPublication) {
+//            groupId = project.group
+//            artifactId = project.name
+//            version = project.version
+//            from components.java
+//        }
+//    }
+//}
 
 //ext {
 //    bintrayRepo = 'maven'
